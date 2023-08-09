@@ -62,7 +62,7 @@ class DoublyLinkedLIst<T> {
 			}
 			currnode = null;
 		}
-		throw new NullPointerException("Empty Linked List");
+		else throw new NullPointerException("Empty Linked List");
 	}
 
 	void addAll(Collection<? extends T> list)
@@ -87,7 +87,7 @@ class DoublyLinkedLIst<T> {
 			head = head.next;
 			return;
 		}
-		throw new NullPointerException("Empty Linked List");
+		else throw new NullPointerException("Empty Linked List");
 	}
 	void clear()
 	{
@@ -117,7 +117,7 @@ class DoublyLinkedLIst<T> {
 	{
 		if(head == null)
 		{
-			throw new NullPointerException("Linked List Is Empty");
+			return null;
 		}
 		return  head.data;
 	}

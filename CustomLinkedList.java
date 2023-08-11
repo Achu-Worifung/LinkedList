@@ -64,6 +64,7 @@ class CustomLinkedList<T> {
 			}
 			curNode = null;
 		}
+		throw new NullPointerException("Empty Linked List");
 	}
 
 	void addAll(Collection<? extends T> list) {
@@ -91,6 +92,7 @@ class CustomLinkedList<T> {
 			head = head.next;
 		} else {
 			// list is empty can't remove
+			throw new NullPointerException("Empty Linked List");
 		}
 	}
 
@@ -117,8 +119,13 @@ class CustomLinkedList<T> {
 		return false;
 	}
 
-	T getFirst() {
-		return head.data;
+	T getFirst()
+	{
+		if(head == null)
+		{
+			throw new NullPointerException("Linked List Is Empty");
+		}
+		return  head.data;
 	}
 
 	T getLast() {
@@ -153,9 +160,10 @@ class CustomLinkedList<T> {
 			System.out.println("Custome Linked List is EMPTY!");
 			return;
 		} else {
+			System.out.println("Custome Doubly Linked List: ");
 			Node<T> currnode = head;
 			while (currnode != null) {
-				System.out.println(currnode.data);
+				System.out.print(currnode.data+ " ");
 				currnode = currnode.next;
 			}
 		}
@@ -220,8 +228,7 @@ class CustomLinkedList<T> {
 		// specified element.
 		if (isEmpty())
 			return;
-		if (index > size)
-			return;
+		if (index > size) throw new IndexOutOfBoundsException("Index Out of Bounds");
 		int count = 0;
 		Node<T> currnode = head;
 		while (currnode != null) {
@@ -239,28 +246,5 @@ class CustomLinkedList<T> {
 		return size;
 	}
 
-	public static void main(String[] args) {
-		CustomLinkedList<Integer> list1 = new CustomLinkedList<>();
-		System.out.println(
-				"Integer LinkedList created as list1 :");
-
-		// Element 1 - 100
-		list1.add(100);
-		// Element 2 - 200
-		list1.add(200);
-		// Element 3 - 300
-
-		list1.add(300);
-		ArrayList<Integer> array = new ArrayList<>();
-		array.add(1);
-		array.add(2);
-		array.add(3);
-		array.add(4000);
-		list1.addAll(array);
-		// list1.clear();
-		System.out.println(list1.peekLast().data);
-		list1.printList();
-
-	}
 
 }

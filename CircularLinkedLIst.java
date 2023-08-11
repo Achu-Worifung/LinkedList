@@ -1,3 +1,4 @@
+import java.util.Collection;
 
 class CircularLinkedLIst<T> {
 
@@ -58,7 +59,29 @@ class CircularLinkedLIst<T> {
 			size++;
 		}
 	}
-
+	void addAll(Collection<? extends T> list) {
+		for (T data : list) {
+			add(data);
+			size++;
+		}
+	}
+	void clear() {
+		head = null;
+	}
+	boolean contains(Object value) {
+		if (isEmpty()) {
+			return false;
+		} else {
+			Node<T> currnode = head;
+			while (currnode.next != head) {
+				if (currnode.data.equals(value)) {
+					return true;
+				}
+				currnode = currnode.next;
+			}
+		}
+		return false;
+	}
 	void removeTail() {
 
 		if (head == null) {
@@ -67,11 +90,11 @@ class CircularLinkedLIst<T> {
 			head = null;
 			size--;
 			return;
-		} else if (head.next.next = head) {
+		} else if (head.next.next == head) {
 			head.next = head;
 			size--;
 
-		} else {
+		} else { 
 			Node<T> currnode = head;
 			while (currnode.next.next != head) {
 				currnode = currnode.next;
@@ -87,8 +110,9 @@ class CircularLinkedLIst<T> {
 		if (index == 0) {
 			addHead(data);
 
-		} else if (index == size + 1) {
-			// out of boundexception
+		} else if ((index == size + 1) || (index < 0)) {
+			
+			throw new IndexOutOfBoundsException("Index Is Out Of Bound");
 		} else {
 			int count = 0;
 			Node<T> node = new Node<>(data);
@@ -118,7 +142,7 @@ class CircularLinkedLIst<T> {
 				currnode = currnode.next;
 			}
 			currnode.next = currnode.next.next;
-		}
+		} else throw new IndexOutOfBoundsException("Index Out of Bound");
 
 	}
 
@@ -136,6 +160,107 @@ class CircularLinkedLIst<T> {
 
 	boolean isEmpty() {
 		return head == null;
+	}
+	T getFirst()
+	{
+		if(head == null)
+		{
+			throw new NullPointerException("Linked List Is Empty");
+		}
+		return  head.data;
+	}
+	T getLast() {
+		if (isEmpty())
+			return null;
+		Node<T> currnode = head;
+		while (currnode.next != head) {
+			currnode = currnode.next;
+		}
+		return currnode.data;
+	}
+	int indexOf(Object value) {
+		int index = 0;
+		if (isEmpty()) {
+			return -1;
+		} else {
+			Node<T> currnode = head;
+			while (currnode.next != head) {
+				if (currnode.data.equals(value)) {
+					return index;
+				}
+				currnode = currnode.next;
+				index++;
+			}
+		}
+		return -1;
+	}
+	Node<T> peekFirst() {
+		if (isEmpty())
+			throw new NullPointerException("Empty List");
+		else
+			return head;
+	}
+	Node<T> peekLast() {
+		if (isEmpty())
+			throw new NullPointerException("Empty List");
+		else {
+			Node<T> currnode = head;
+			while (currnode.next != head) {
+
+				currnode = currnode.next;
+			}
+			return currnode;
+		}
+
+	}
+	Node<T> pollFirst() {
+		if (isEmpty())
+			throw new NullPointerException("Empty List");
+		
+		else {
+			Node<T> temp = head;
+			removeHead();
+			return temp;
+		}
+	}
+	Node<T> pollLast() {
+		if (isEmpty())
+			throw new NullPointerException("Empty List");
+		else {
+			Node<T> currnode = head;
+			while (currnode.next.next != head) {
+				currnode = currnode.next;
+			}
+			Node<T> temp = currnode.next;
+			currnode.next = head;
+			return temp;
+		}
+	}
+	Object[] toArray() {
+		Object[] array = new Object[getSize()-1];
+		for (int i = 0; i < array.length; i++) {
+			Node<T> currnode = pollFirst();
+			array[i] = currnode.data;
+		}
+		return array;
+	}
+	void set(int index, T value) {
+		// It replaces the element at the specified position in a list with the
+		// specified element.
+		if (isEmpty())
+			throw new NullPointerException("Empty List");
+		if (index > size) throw new IndexOutOfBoundsException("Index Out of Bounds");
+		int count = 0;
+		Node<T> currnode = head;
+		while (currnode != head) {
+			if (count == index) {
+				currnode.data = value;
+				return;
+			} else {
+				count++;
+				currnode = currnode.next;
+			}
+		}
 	}
 
 	void printList() {
@@ -156,7 +281,7 @@ class CircularLinkedLIst<T> {
 		Node<T> currnode = head;
 		int times = 2;
 		while (true) {
-			if (currnode.next = head) {
+			if (currnode.next == head) {
 				System.out.println(times + ": ");
 				System.out.println();
 				times++;

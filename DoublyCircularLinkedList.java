@@ -389,26 +389,4 @@ public class DoublyCircularLinkedList<T> {
 		}
 	}
 
-
-    public static void main(String[] args) {
-        DoublyCircularLinkedList<Integer> list = new DoublyCircularLinkedList<>();
-
-        for(int i = 0; i <= 100; i++)
-        {
-            list.add(i);
-        }
-        list.addFirst(1000);
-        list.add(98, 100000);
-        list.pollIndex(98);
-        // list.clear();
-        list.pollFirst();
-        // list.print();
-        // System.out.println();
-        // System.out.println("size is " + list.getSize());
-        // System.out.println(list.pollLast().data);
-        list.forwardThenBackward();
-
-
-
-    }
 }
